@@ -1,17 +1,26 @@
-{{- if .Values.mqtt.configuration.enabled }}
+{{- if .Values.opcua.configuration.enabled }}
 apiVersion: {{ printf "%s/%s" .Values.crds.group .Values.crds.version }}
 kind: Configuration
 metadata:
-  name: {{ .Values.mqtt.configuration.name }}
+  name: {{ .Values.opcua.configuration.name }}
 spec:
   discoveryHandler:
-    name: mqtt
+    name: opcua
     discoveryDetails: |+
-      {{- with .Values.mqtt.configuration.discoveryDetails}}
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      opcuaDiscoveryMethod: 
+        standard:
+          discoveryUrls: 
+          {{- toYaml .Values.opcua.configuration.discoveryDetails.discoveryUrls | nindent 10 }}
+      applicationNames:
+        action: {{ .Values.opcua.configuration.discoveryDetails.applicationNames.action }}
+        {{- if .Values.opcua.configuration.discoveryDetails.applicationNames.items}}
+        items:
+        {{- toYaml .Values.opcua.configuration.discoveryDetails.applicationNames.items | nindent 8 }}
+        {{- else }}
+        items: []
+        {{- end }}
 
-  capacity: {{ .Values.mqtt.configuration.capacity }}
+  capacity: {{ .Values.opcua.configuration.capacity }}
 {{- end }}
 
 ---
