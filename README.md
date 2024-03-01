@@ -10,12 +10,6 @@ The akri folder contains fleet configuration to deploy Akri helm with MQTT and O
 
 IFF Akri controller deployment, role binding and Akri Configurations for both MQTT and OPC-UA instance discovery is located in this folder. Using values.yaml file, the Akri Configurations for MQTT and OPC-UA can be configured to detect right machines/devices using IP address of OPC-UA server and MQTT broker URL and single main MQTT topic of the machine.
 
-**Discovery Handler (DH) Configuration:**
-
-The Akri's DH must be given a set of URLs and the OPC-UA servers's applicationName value to discover the appropriate machine. These are passed to Akri with IFF broker's Helm template as part of Akri 'Configuration' custom resource.
-
-IFF uses a single node for each machine, and each machine will have its own OPC configuration data tree. These configurations are deployed as configmaps as described above. Because of the single node, the applicationName config for Akri will contain only one server name.
-
 **Usecase:**
 
 IFF prepares the single node smartbox as a platform by deploying the above mentioned Akri components and ships them to users for connecting them to a predefined machine IP address for OPC-UA and with predefined MQTT Broker URL and a topic.
